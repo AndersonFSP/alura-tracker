@@ -1,6 +1,6 @@
 <template>
   <button class="button" :disabled="disabled">
-    <span class="icon">
+    <span class="icon" v-if="icon">
       <i :class="['fas', icon]"></i>
     </span>
     <span>{{ text }}</span>
@@ -14,11 +14,11 @@ export default defineComponent({
   props: {
     text: {
       type: String, 
-      required: true
+      default: ''
     },
     icon: {
       type: String,
-      required: true 
+      required: false 
     },
     disabled: {
       type: Boolean,

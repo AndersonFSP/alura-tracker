@@ -4,56 +4,35 @@
       <SideBar @themeChanged="changeTheme" />
     </div>
     <div class="column is-three-quarter content">
-      <FormTracker @onFinishTask="saveTask"/>
-      <div class="lista">
-        <Box v-if="hasEmptyTasks">
-          <p>Você não está produtivo hoje</p>
-        </Box>
-        <Task
-          v-for="(task, index) in tasks" 
-          :key="index"
-          :task="task"
-        />
-      </div>
+      <Notification />
+      <router-view />
     </div>
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import SideBar from '@/components/SideBar.vue'
-import FormTracker from '@/components/FormTracker.vue'
-import Task from '@/components/Task.vue'
-import { ITask } from './interfaces/ITasks'
-import Box from './components/Box.vue';
+import Notification from '@/components/Notification.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     SideBar,
-    FormTracker,
-    Task,
-    Box
+    Notification,
   },
 
   data: () => ({
-    tasks: [] as ITask[],
     isDarkModeActived: false
   }),
 
   computed: {
-    hasEmptyTasks(): boolean {
-      return this.tasks.length === 0
-    },
     modeTheme() {
       return this.isDarkModeActived ? 'dark-mode' : ''
     }
   },
 
   methods: {
-    saveTask(task: ITask): void {
-      this.tasks.push(task)
-    },
     changeTheme(isDarkModeActived: boolean): void {
       this.isDarkModeActived = isDarkModeActived
     }
